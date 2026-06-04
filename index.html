@@ -304,175 +304,20 @@
         color: var(--text);
       }
 
-      /* Estilos do Modal de Sincronização */
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(13, 15, 20, 0.85);
-        backdrop-filter: blur(8px);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-      }
-      .modal-overlay.open {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .modal-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        width: 90%;
-        max-width: 440px;
-        padding: 24px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        transform: translateY(20px);
-        transition: transform 0.3s ease;
-      }
-      .modal-overlay.open .modal-card {
-        transform: translateY(0);
-      }
-      .modal-title {
-        font-family: "Instrument Serif", serif;
-        font-size: 1.8rem;
-        color: #7c9ef8;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .modal-desc {
-        font-size: 0.82rem;
+      /* Estilos do Status da Nuvem */
+      #cloud-status {
+        font-size: 0.65rem;
         color: var(--muted);
-        line-height: 1.4;
-        margin-bottom: 20px;
-      }
-      .sync-input-group {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 16px;
-      }
-      .sync-input {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid var(--border);
-        border-radius: 8px;
-        padding: 10px 14px;
-        color: var(--text);
-        font-family: "DM Mono", monospace;
-        font-size: 0.9rem;
-        outline: none;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        transition: border-color 0.2s;
-      }
-      .sync-input:focus {
-        border-color: #7c9ef8;
-      }
-      .modal-btn {
-        background: #7c9ef8;
-        color: #0d0f14;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 16px;
-        font-family: "Figtree", sans-serif;
-        font-size: 0.85rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s;
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 6px;
-      }
-      .modal-btn:hover {
-        background: #9ab4f9;
-        transform: translateY(-1px);
-      }
-      .modal-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-      .modal-btn-secondary {
-        background: transparent;
+        gap: 4px;
+        margin-right: 8px;
         border: 1px solid var(--border);
-        color: var(--text);
-      }
-      .modal-btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: var(--muted);
-      }
-      .modal-actions {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 20px;
-      }
-      .code-display {
-        background: rgba(124, 158, 248, 0.05);
-        border: 1px dashed rgba(124, 158, 248, 0.3);
-        padding: 12px;
-        border-radius: 8px;
-        font-family: "DM Mono", monospace;
-        font-size: 1.2rem;
-        color: #7c9ef8;
-        text-align: center;
-        letter-spacing: 0.1em;
-        position: relative;
-        cursor: pointer;
-        user-select: all;
-        margin: 16px 0;
-      }
-      .code-display::after {
-        content: "Clique para copiar";
-        display: block;
-        font-size: 0.6rem;
-        color: var(--muted);
-        letter-spacing: 0.05em;
-        margin-top: 4px;
-        font-family: "Figtree", sans-serif;
-      }
-
-      /* Botão de sincronização no cabeçalho */
-      .sync-btn {
-        background: rgba(124, 158, 248, 0.1);
-        border: 1px solid rgba(124, 158, 248, 0.2);
-        color: #7c9ef8;
-        font-family: "Figtree", sans-serif;
-        font-size: 0.75rem;
-        font-weight: 500;
-        padding: 6px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.02);
         transition: all 0.2s ease;
         user-select: none;
-      }
-      .sync-btn:hover {
-        background: rgba(124, 158, 248, 0.2);
-        border-color: #7c9ef8;
-      }
-      .sync-btn.loading {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
-
-      @media (max-width: 480px) {
-        .sync-text-span {
-          display: none;
-        }
-        .sync-btn {
-          padding: 8px;
-        }
       }
     </style>
   </head>
@@ -483,9 +328,10 @@
         <p>Residencia Medica &middot; 1 topico por dia &middot; ~1h</p>
       </div>
       <div class="global-wrap">
-        <button id="sync-btn" class="sync-btn" onclick="openSyncModal()">
-          <span class="sync-icon-span">☁️</span> <span class="sync-text-span">Sincronizar</span>
-        </button>
+        <div id="cloud-status">
+          <span id="cloud-icon" style="color: #7c9ef8;">☁️</span>
+          <span id="cloud-text">Nuvem ativa</span>
+        </div>
         <div class="global-pct">
           <span id="gpct-num" style="font-size: 1rem; color: #7c9ef8">0%</span>
           <span>concluido</span>
@@ -2008,204 +1854,72 @@
         syncUp();
       }
 
-      // Sincronização em Nuvem - Lógica JavaScript
-      let syncCode = localStorage.getItem("resi4_sync_code") || null;
+      // Sincronização em Nuvem Automática (Usuária Única)
+      const CLOUD_KEY = "taci_residencia_progress";
       let isSyncing = false;
 
-      function updateSyncBtnState(status) {
-        const btn = document.getElementById("sync-btn");
-        if (!btn) return;
-        const icon = btn.querySelector(".sync-icon-span");
-        const text = btn.querySelector(".sync-text-span");
+      function updateCloudStatus(status) {
+        const icon = document.getElementById("cloud-icon");
+        const text = document.getElementById("cloud-text");
+        const container = document.getElementById("cloud-status");
+        if (!icon || !text || !container) return;
+
         if (status === 'syncing') {
-          btn.classList.add('loading');
-          if (icon) icon.textContent = "🔄";
-          if (text) text.textContent = "Sincronizando...";
+          icon.textContent = "🔄";
+          icon.style.color = "#7c9ef8";
+          text.textContent = "Salvando...";
+          container.style.borderColor = "rgba(124, 158, 248, 0.2)";
         } else if (status === 'synced') {
-          btn.classList.remove('loading');
-          if (icon) icon.textContent = "☁️";
-          if (text) text.textContent = syncCode ? "Nuvem ativa" : "Sincronizar";
+          icon.textContent = "☁️";
+          icon.style.color = "#34d399";
+          text.textContent = "Salvo na Nuvem";
+          container.style.borderColor = "rgba(52, 211, 153, 0.2)";
         } else if (status === 'error') {
-          btn.classList.remove('loading');
-          if (icon) icon.textContent = "⚠️";
-          if (text) text.textContent = "Erro de Sinc.";
+          icon.textContent = "⚠️";
+          icon.style.color = "#f87171";
+          text.textContent = "Offline (Local)";
+          container.style.borderColor = "rgba(248, 113, 113, 0.2)";
         }
       }
 
       async function syncUp() {
-        if (!syncCode || isSyncing) return;
+        if (isSyncing) return;
         isSyncing = true;
-        updateSyncBtnState('syncing');
+        updateCloudStatus('syncing');
         try {
-          await saveRemoteState(syncCode, state);
-          updateSyncBtnState('synced');
+          await saveRemoteState(state);
+          updateCloudStatus('synced');
         } catch (err) {
           console.error(err);
-          updateSyncBtnState('error');
+          updateCloudStatus('error');
         } finally {
           isSyncing = false;
         }
       }
 
       async function syncDown() {
-        if (!syncCode) return;
         isSyncing = true;
-        updateSyncBtnState('syncing');
+        updateCloudStatus('syncing');
         try {
-          const remote = await fetchRemoteState(syncCode);
+          const remote = await fetchRemoteState();
           if (remote) {
             state = { ...state, ...remote };
             saveState(state);
             renderAll();
             updateGlobal();
-            await saveRemoteState(syncCode, state);
+            await saveRemoteState(state);
           }
-          updateSyncBtnState('synced');
+          updateCloudStatus('synced');
         } catch (err) {
           console.error(err);
-          updateSyncBtnState('error');
+          updateCloudStatus('error');
         } finally {
           isSyncing = false;
         }
       }
 
-      function openSyncModal() {
-        const modal = document.getElementById("sync-modal");
-        modal.classList.add("open");
-        renderModalContent();
-      }
-
-      function closeSyncModal(event) {
-        const modal = document.getElementById("sync-modal");
-        modal.classList.remove("open");
-      }
-
-      function renderModalContent() {
-        const container = document.getElementById("modal-content-area");
-        if (!container) return;
-
-        if (!syncCode) {
-          container.innerHTML = `
-            <p class="modal-desc">
-              Sincronize o seu progresso entre o celular, tablet e computador para não perder nenhuma marcação.
-            </p>
-            <button class="modal-btn" style="width: 100%; margin-bottom: 16px;" onclick="handleGenerateCode()">
-              <span>✨</span> Gerar Novo Código de Sincronização
-            </button>
-            <div style="font-size: 0.72rem; color: var(--muted); text-align: center; margin-bottom: 12px;">ou use um código existente</div>
-            <div class="sync-input-group">
-              <input type="text" id="existing-code-input" class="sync-input" placeholder="Ex: ABC123" maxlength="8" />
-              <button class="modal-btn" onclick="handleConnectCode()">Conectar</button>
-            </div>
-            <div id="modal-error-msg" style="color: #f87171; font-size: 0.75rem; text-align: center; margin-top: 8px; display: none;"></div>
-            <div class="modal-actions">
-              <button class="modal-btn modal-btn-secondary" onclick="closeSyncModal()">Fechar</button>
-            </div>
-          `;
-        } else {
-          container.innerHTML = `
-            <p class="modal-desc">
-              Seu progresso está sendo salvo na nuvem automaticamente. Use o código abaixo em outros aparelhos:
-            </p>
-            <div class="code-display" onclick="copySyncCode()">${syncCode}</div>
-            <div id="copy-success-msg" style="color: #34d399; font-size: 0.72rem; text-align: center; margin-top: -10px; margin-bottom: 16px; display: none;">Código copiado!</div>
-            <button class="modal-btn modal-btn-secondary" style="width: 100%; margin-bottom: 10px;" onclick="handleForceSync()">
-              <span>🔄</span> Sincronizar Agora
-            </button>
-            <button class="modal-btn modal-btn-secondary" style="width: 100%; color: #f87171; border-color: rgba(248, 113, 113, 0.2);" onclick="handleDisconnect()">
-              <span>🔌</span> Desconectar Sincronização
-            </button>
-            <div class="modal-actions">
-              <button class="modal-btn" onclick="closeSyncModal()">Fechar</button>
-            </div>
-          `;
-        }
-      }
-
-      function generateSyncCode() {
-        const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-        let code = '';
-        for (let i = 0; i < 6; i++) {
-          code += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return code;
-      }
-
-      async function handleGenerateCode() {
-        const newCode = generateSyncCode();
-        const btn = document.querySelector("#modal-content-area .modal-btn");
-        if (btn) btn.disabled = true;
-        try {
-          await saveRemoteState(newCode, state);
-          syncCode = newCode;
-          localStorage.setItem("resi4_sync_code", newCode);
-          renderModalContent();
-          updateSyncBtnState('synced');
-        } catch (err) {
-          alert('Erro ao criar código de sincronização. Verifique sua conexão.');
-        } finally {
-          if (btn) btn.disabled = false;
-        }
-      }
-
-      async function handleConnectCode() {
-        const input = document.getElementById("existing-code-input");
-        const errMsg = document.getElementById("modal-error-msg");
-        if (!input || !input.value.trim()) return;
-        const code = input.value.trim().toUpperCase();
-        
-        errMsg.style.display = "none";
-        try {
-          const remote = await fetchRemoteState(code);
-          if (remote === null) {
-            errMsg.textContent = "Código não encontrado. Verifique se digitou corretamente.";
-            errMsg.style.display = "block";
-            return;
-          }
-          
-          state = { ...state, ...remote };
-          saveState(state);
-          syncCode = code;
-          localStorage.setItem("resi4_sync_code", code);
-          
-          renderAll();
-          updateGlobal();
-          
-          await saveRemoteState(code, state);
-          
-          renderModalContent();
-          updateSyncBtnState('synced');
-        } catch (err) {
-          errMsg.textContent = "Erro de conexão ao buscar o código.";
-          errMsg.style.display = "block";
-        }
-      }
-
-      async function handleForceSync() {
-        await syncDown();
-        renderModalContent();
-      }
-
-      function handleDisconnect() {
-        if (!confirm("Tem certeza que deseja desconectar? Seu progresso atual continuará salvo localmente neste aparelho, mas as atualizações não serão enviadas para a nuvem.")) return;
-        syncCode = null;
-        localStorage.removeItem("resi4_sync_code");
-        renderModalContent();
-        updateSyncBtnState('synced');
-      }
-
-      function copySyncCode() {
-        navigator.clipboard.writeText(syncCode).then(() => {
-          const msg = document.getElementById("copy-success-msg");
-          if (msg) {
-            msg.style.display = "block";
-            setTimeout(() => { msg.style.display = "none"; }, 2000);
-          }
-        });
-      }
-
-      async function fetchRemoteState(code) {
-        const response = await fetch(`https://kvdb.io/KQtpz4aVrLz14QYf3n1nnL/${code.toUpperCase()}`);
+      async function fetchRemoteState() {
+        const response = await fetch(`https://kvdb.io/KQtpz4aVrLz14QYf3n1nnL/${CLOUD_KEY}`);
         if (response.status === 404) {
           return null;
         }
@@ -2215,8 +1929,8 @@
         return await response.json();
       }
 
-      async function saveRemoteState(code, data) {
-        const response = await fetch(`https://kvdb.io/KQtpz4aVrLz14QYf3n1nnL/${code.toUpperCase()}`, {
+      async function saveRemoteState(data) {
+        const response = await fetch(`https://kvdb.io/KQtpz4aVrLz14QYf3n1nnL/${CLOUD_KEY}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -2232,24 +1946,8 @@
       const first = document.querySelector(".day-card");
       if (first) first.classList.add("open");
 
-      // Inicialização do sync em segundo plano
-      if (syncCode) {
-        syncDown();
-      } else {
-        updateSyncBtnState('synced');
-      }
+      // Inicialização do sync automático em segundo plano
+      syncDown();
     </script>
-
-    <!-- Modal de Sincronização HTML -->
-    <div id="sync-modal" class="modal-overlay" onclick="closeSyncModal(event)">
-      <div class="modal-card" onclick="event.stopPropagation()">
-        <div class="modal-title">
-          <span>☁️</span> Sincronização em Nuvem
-        </div>
-        <div id="modal-content-area">
-          <!-- Conteúdo dinâmico via JS -->
-        </div>
-      </div>
-    </div>
   </body>
 </html>
